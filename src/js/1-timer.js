@@ -25,7 +25,7 @@ const options = {
     minuteIncrement: 1,
     onClose(selectedDates) {
       const selectedDate = selectedDates[0];
-      if (selectedDate <= newDate()){
+      if (selectedDate <= new Date()){
         iziToast.warning({
           title:'Warning',
           message: 'Please choose a data in the future',
@@ -38,7 +38,7 @@ const options = {
       startBtn.disabled = false;
     },
   };
-flatpickr('#datatime-picker', options);
+flatpickr('#datetime-picker', options);
 
 startBtn.addEventListener('click', () => {
   if(!userSelectedDate)
@@ -48,15 +48,14 @@ startBtn.addEventListener('click', () => {
   intervalId = setInterval(() => {
   const currentTime = new Date();
   const diffMS = userSelectedDate - currentTime;
-  const timeStr = timeToStr(diffMS);
-  field.textContent = timeStr;
+  
 
 if (diffMS < 1000){
   clearInterval(intervalId);
   updateTimer ({ days:0, hours:0, minutes:0, seconds:0});
   inputEl.disabled = false;
   return;}
-  const time = convertMs(diff);
+  const time = convertMs(diffMS);
   updateTimer(time);
 }, 1000);
 });
